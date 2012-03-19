@@ -14,8 +14,8 @@ For each plugin that isn't already loaded:
 Examples:
 
 ```javascript
-  $.socialPlugins.load(); // loads all supported plugins
-  $.socialPlugins.load(['facebook', 'twitter']); // only Facebook and Twitter
+$.socialPlugins.load(); // loads all supported plugins
+$.socialPlugins.load(['facebook', 'twitter']); // only Facebook and Twitter
 ```
 
 ## $.socialPlugins.parse( plugins )
@@ -32,11 +32,11 @@ This method is useful when you dynamically update your page (i.e. via ajax) and 
 Examples:
 
 ```javascript
-  $.socialPlugins.parse(); // calls the parse function of all loaded plugins
-  $.socialPlugins.parse(['facebook']); // only Facebook (renders new Like buttons, etc.)
+$.socialPlugins.parse(); // calls the parse function of all loaded plugins
+$.socialPlugins.parse(['facebook']); // only Facebook (renders new Like buttons, etc.)
 ```
 
-## Default data-attributes
+## Settings defaults
 
 Default data-attributes can be set to your plugin tags before load and parse:
 
@@ -109,18 +109,19 @@ $.socialPlugins.supported.push('plugin_name');
 ## FB.init
 
 Facebook Connect requires initialization with `FB.init`.
+
 This can be done by attaching an event handler to `load.facebook`:
 
 ```javascript
-  $(document).on('load.facebook', function() {
-    $('body').append('<div id="fb-root"></div>'); // Required by Facebook Connect
-    FB.init({
-      appId: $('meta[property="fb:app_id"]').attr('content'),
-      status: true,
-      cookie: true,
-      xfbml: true
-    });
+$(document).on('load.facebook', function() {
+  $('body').append('<div id="fb-root"></div>'); // Required by Facebook Connect
+  FB.init({
+    appId: $('meta[property="fb:app_id"]').attr('content'),
+    status: true,
+    cookie: true,
+    xfbml: true
   });
+});
 ```
 
 ## License
