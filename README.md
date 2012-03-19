@@ -126,5 +126,6 @@ $(document).on('load.facebook', function() {
 
 ## License
 
-Copyright 2012 [Thibaut Courouble](http://thibaut.me)
+Copyright (c) 2012 [Thibaut Courouble](http://thibaut.me)
+
 Licensed under the MIT License.
