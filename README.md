@@ -36,7 +36,7 @@ $.socialPlugins.parse(); // calls the parse function of all loaded plugins
 $.socialPlugins.parse(['facebook']); // only Facebook (renders new Like buttons, etc.)
 ```
 
-## Settings defaults
+## Setting defaults
 
 Default data-attributes can be set to your plugin tags before load and parse:
 
