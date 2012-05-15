@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>jQuery.socialPlugins by Thibaut</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>jQuery.socialPlugins</h1>
+        <p>A jQuery plugin to lazy load social plugins such as Facebook Connect, Twitter Widgets, Google +1, and LinkedIn.</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/Thibaut/jquery-social-plugins" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/Thibaut/jquery-social-plugins/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/Thibaut/jquery-social-plugins/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h2>$.socialPlugins.load( plugins )</h2>
+
+<p>Accepts an <code>Array</code> of plugin names (defaults to all supported plugins).</p>
+
+<p>For each plugin that isn't already loaded:</p>
+
+<ul>
+<li>sets default data-attributes;</li>
+<li>asynchronously loads the JavaScript file.</li>
+</ul><p>Examples:</p>
+
+<div class="highlight">
+<pre><span class="nx">$</span><span class="p">.</span><span class="nx">socialPlugins</span><span class="p">.</span><span class="nx">load</span><span class="p">();</span> <span class="c1">// loads all supported plugins</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">socialPlugins</span><span class="p">.</span><span class="nx">load</span><span class="p">([</span><span class="s1">'facebook'</span><span class="p">,</span> <span class="s1">'twitter'</span><span class="p">]);</span> <span class="c1">// only Facebook and Twitter</span>
+</pre>
+</div>
+
+
+<h2>$.socialPlugins.parse( plugins )</h2>
+
+<p>Accepts an <code>Array</code> of plugin names (defaults to all supported plugins).</p>
+
+<p>For each loaded plugin:</p>
+
+<ul>
+<li>sets default data-attributes;</li>
+<li>calls the plugin's parse function, discarding errors.</li>
+</ul><p>This method is useful when you dynamically update your page (i.e. via ajax) and want to render new plugin tags.</p>
+
+<p>Examples:</p>
+
+<div class="highlight">
+<pre><span class="nx">$</span><span class="p">.</span><span class="nx">socialPlugins</span><span class="p">.</span><span class="nx">parse</span><span class="p">();</span> <span class="c1">// calls the parse function of all loaded plugins</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">socialPlugins</span><span class="p">.</span><span class="nx">parse</span><span class="p">([</span><span class="s1">'facebook'</span><span class="p">]);</span> <span class="c1">// only Facebook (renders new Like buttons, etc.)</span>
+</pre>
+</div>
+
+
+<h2>Setting defaults</h2>
+
+<p>Default data-attributes can be set to your plugin tags before load and parse:</p>
+
+<div class="highlight">
+<pre><span class="nx">$</span><span class="p">.</span><span class="nx">socialPlugins</span><span class="p">.</span><span class="nx">plugin_name</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'selector'</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">attribute</span><span class="o">:</span> <span class="s1">'value'</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<p>Before <code>plugin_name</code> is loaded, or its parse function called, <code>data-attribute="value"</code> will be added to all elements matching <code>selector</code> which do not already have a <code>data-attribute</code> attribute.</p>
+
+<p>Examples:</p>
+
+<div class="highlight">
+<pre><span class="c1">// Default all Facebook Like and Subscribe buttons to the "button_count" layout</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">socialPlugins</span><span class="p">.</span><span class="nx">facebook</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'.fb-like, .fb-subscribe'</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">layout</span><span class="o">:</span> <span class="s1">'button_count'</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// Default all Tweet buttons to the French language and "large" size</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">socialPlugins</span><span class="p">.</span><span class="nx">twitter</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'.twitter-share-button'</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">lang</span><span class="o">:</span> <span class="s1">'fr'</span><span class="p">,</span>
+    <span class="nx">size</span><span class="o">:</span> <span class="s1">'large'</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre>
+</div>
+
+
+<h2>Events</h2>
+
+<ul>
+<li><p><code>load.plugin_name</code> is fired when a plugin's JavaScript is successfully loaded.</p></li>
+<li><p><code>parse.plugin_name</code> is fired when a plugin's parse function is successfully called.</p></li>
+</ul><h2>Supported Plugins</h2>
+
+<div class="highlight">
+<pre><span class="nx">facebook</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">url</span><span class="o">:</span> <span class="s1">'//connect.facebook.net/en_US/all.js'</span><span class="p">,</span>
+  <span class="nx">parse</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">FB</span><span class="p">.</span><span class="nx">XFBML</span><span class="p">.</span><span class="nx">parse</span><span class="p">();</span> <span class="p">}</span>
+<span class="p">},</span>
+<span class="nx">twitter</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">url</span><span class="o">:</span> <span class="s1">'//platform.twitter.com/widgets.js'</span><span class="p">,</span>
+  <span class="nx">parse</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">twttr</span><span class="p">.</span><span class="nx">widgets</span><span class="p">.</span><span class="nx">load</span><span class="p">();</span> <span class="p">}</span>
+<span class="p">},</span>
+<span class="nx">google</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">url</span><span class="o">:</span> <span class="s1">'//apis.google.com/js/plusone.js'</span><span class="p">,</span>
+  <span class="nx">parse</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">gapi</span><span class="p">.</span><span class="nx">plusone</span><span class="p">.</span><span class="nx">go</span><span class="p">();</span> <span class="p">}</span>
+<span class="p">},</span>
+<span class="nx">linkedin</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">url</span><span class="o">:</span> <span class="s1">'//platform.linkedin.com/in.js'</span><span class="p">,</span>
+  <span class="nx">parse</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">IN</span><span class="p">.</span><span class="nx">parse</span><span class="p">();</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+<p>To add a new plugin:</p>
+
+<div class="highlight">
+<pre><span class="nx">$</span><span class="p">.</span><span class="nx">socialPlugins</span><span class="p">.</span><span class="nx">plugin_name</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">url</span><span class="o">:</span> <span class="s1">'...'</span><span class="p">,</span>
+  <span class="nx">parse</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">plugin_global_var</span><span class="p">.</span><span class="nx">parseFunction</span><span class="p">();</span> <span class="p">}</span>
+<span class="p">};</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">socialPlugins</span><span class="p">.</span><span class="nx">supported</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">'plugin_name'</span><span class="p">);</span>
+</pre>
+</div>
+
+
+<h2>FB.init</h2>
+
+<p>Facebook Connect requires initialization with <code>FB.init</code>.</p>
+
+<p>This can be done by attaching an event handler to <code>load.facebook</code>:</p>
+
+<div class="highlight">
+<pre><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">'load.facebook'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'body'</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s1">'&lt;div id="fb-root"&gt;&lt;/div&gt;'</span><span class="p">);</span> <span class="c1">// Required by Facebook Connect</span>
+  <span class="nx">FB</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+    <span class="nx">appId</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'meta[property="fb:app_id"]'</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">'content'</span><span class="p">),</span>
+    <span class="nx">status</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">cookie</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">xfbml</span><span class="o">:</span> <span class="kc">true</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre>
+</div>
+
+
+<h2>License</h2>
+
+<p>Copyright (c) 2012 <a href="http://thibaut.me">Thibaut Courouble</a></p>
+
+<p>Licensed under the MIT License.</p>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/Thibaut">Thibaut</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+    
+  </body>
+</html>
